@@ -20,5 +20,19 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "rokrok"
-include(":app")
- 
+include(":app:rokrok")
+include(":common")
+include(":core")
+include(":core:common")
+include(":core:ui")
+include(":data")
+include(":di")
+include(":di:injectRepository")
+include(":domain")
+include(":domain:interfaceRepository")
+include(":domain:model")
+include(":domain:usecase")
+include(":presentation")
+include(":presentation:main")
+include(":app:rokrok")
+include(":test")
