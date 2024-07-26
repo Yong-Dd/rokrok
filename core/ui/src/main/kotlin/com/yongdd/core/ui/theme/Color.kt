@@ -1,4 +1,4 @@
-package com.yongdd.app.rokrok.ui.theme
+package com.yongdd.core.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
