@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.fir.expressions.FirEmptyArgumentList.arguments
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -21,6 +23,15 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
+
+    defaultConfig {
+        ksp {
+            arg("room.incremental", "true")
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
+    }
+
+    testOptions.unitTests.isIncludeAndroidResources = true
 }
 
 dependencies {

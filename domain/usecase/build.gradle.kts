@@ -21,6 +21,8 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
+
+    testOptions.unitTests.isIncludeAndroidResources = true
 }
 
 dependencies {

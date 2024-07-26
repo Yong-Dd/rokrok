@@ -3,6 +3,7 @@
 compileSdk = "35"
 minSdk = "24"
 targetSdk = "35"
+kotlinCompilerExtensionVersion = "1.5.4"
 
 agp = "8.4.2"
 kotlin = "1.9.24"
