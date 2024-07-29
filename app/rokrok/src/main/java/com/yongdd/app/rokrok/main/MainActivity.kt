@@ -1,4 +1,4 @@
-package com.yongdd.app.rokrok
+package com.yongdd.app.rokrok.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
