@@ -1,4 +1,10 @@
 package com.yongdd.domain.model.diary
 
-class DiaryModel {
-}
+data class DiaryModel(
+    val id : Int,
+    val title : String?,
+    val content : String?,
+    val yearMonth : String?,
+    val day : Int?,
+    val moodScore : Int?
+)

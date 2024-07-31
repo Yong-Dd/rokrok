@@ -1,4 +1,10 @@
 package com.yongdd.domain.model.routine
 
-class RoutineModel {
-}
+data class RoutineModel(
+    val id: Int,
+    val content : String?,
+    val detail : String?,
+    val daysOfWeek : List<String>?,
+    val emoticon : String?,
+    val registrationDate : String?
+)

@@ -43,6 +43,7 @@ dependencies {
     implementation(libs.datastore.preferences)
     implementation(libs.bundles.room)
     ksp(libs.room.compiler)
+    implementation(libs.gson)
 
     implementation(project(":core:common"))
     implementation(project(":domain:model"))
