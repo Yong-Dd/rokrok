@@ -6,11 +6,12 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class UseCaseGetSaveRoutineList @Inject constructor(
+class UseCaseGetLastRoutineSave @Inject constructor(
     @DispatcherIO private val dispatcher: CoroutineDispatcher,
     private val routineSaveRepository: RoutineSaveRepository
-){
-    suspend operator fun invoke(routineDay: String) = withContext(dispatcher) {
-        routineSaveRepository.getRoutineSaveList(routineDay)
+) {
+    suspend operator fun invoke(routineId: Int, baseDay:String) = withContext(dispatcher) {
+        routineSaveRepository.getLastRoutineSave(routineId, baseDay)
     }
+
 }
