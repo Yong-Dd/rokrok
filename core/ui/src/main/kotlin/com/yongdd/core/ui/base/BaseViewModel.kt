@@ -109,6 +109,8 @@ sealed class CommonEffect : ViewSideEffect {
 }
 
 const val DEFAULT_DELAY_TIME = 15000L
+const val COMMON_EFFECTS_KEY = "common_effects_key"
+const val SIDE_EFFECTS_KEY = "side_effects_key"
 
 abstract class BaseViewModel<UiState : ViewState, Event : ViewEvent, Effect : ViewSideEffect> : ViewModel() {
     private val rootContext : CoroutineContext

@@ -54,6 +54,7 @@ android {
 
 dependencies {
     implementation(libs.hilt.android)
+    implementation(project(":presentation:start"))
     ksp(libs.hilt.android.compiler)
 
     implementation(platform(libs.firebase.bom))

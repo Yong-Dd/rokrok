@@ -21,7 +21,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "rokrok"
 include(":app:rokrok")
-include(":common")
 include(":core")
 include(":core:common")
 include(":core:ui")
