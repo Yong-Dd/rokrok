@@ -7,4 +7,5 @@ interface RoutineSaveRepository {
     suspend fun insertRoutineSave(routineSaveModel: RoutineSaveModel) : Long
     suspend fun updateRoutineSave(saveId: Long, percent: Int, isShow: Boolean)
     suspend fun getRoutineSaveList(routineDay: String) : Flow<List<RoutineSaveModel>>
+    suspend fun getLastRoutineSave(routineId: Int, baseDay:String) : Flow<RoutineSaveModel>
 }

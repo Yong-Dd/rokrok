@@ -20,9 +20,9 @@ interface RoutineDatabaseDao {
     suspend fun updateRoutine(id: Long, content: String, detail: String, daysOfWeek: String, emoticon: String)
 
     @Query("SELECT * FROM RoutineData")
-    suspend fun getAllRoutineList() : Flow<List<RoutineData>>
+    fun getAllRoutineList() : Flow<List<RoutineData>>
 
     @Query("SELECT * FROM RoutineData WHERE id = :id")
-    suspend fun getRoutine(id: Long) : Flow<RoutineData>
+    fun getRoutine(id: Long) : Flow<RoutineData>
 
 }

@@ -16,6 +16,10 @@ interface RoutineSaveDatabaseDao {
     suspend fun updateRoutineSave(saveId: Long, percent: Int, isShow: Boolean)
 
     @Query("SELECT * FROM RoutineSaveData WHERE routineDay = :routineDay")
-    suspend fun getRoutineSaveList(routineDay: String) : Flow<List<RoutineSaveData>>
+    fun getRoutineSaveList(routineDay: String) : Flow<List<RoutineSaveData>>
+
+    // 해당 루틴에서 오늘(또는 주어진 일자) 이전에 저장한 것중 가장 나중에 저장한 1개의 데이터
+    @Query("SELECT * FROM RoutineSaveData WHERE routineId = :routineId AND routineDay < :baseDay ORDER BY routineDay DESC LIMIT 1")
+    fun getLastRoutineSave(routineId: Int, baseDay : String) : Flow<RoutineSaveData>
 
 }

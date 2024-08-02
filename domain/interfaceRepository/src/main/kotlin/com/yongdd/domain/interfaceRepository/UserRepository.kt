@@ -1,4 +1,8 @@
 package com.yongdd.domain.interfaceRepository
 
-class UserRepository {
+interface UserRepository {
+    suspend fun getUserId() : String
+    suspend fun setUserId(id: String)
+
+
 }

@@ -29,4 +29,12 @@ class RoutineSaveRepositoryImpl @Inject constructor(
             }
         }
     }
+
+    override suspend fun getLastRoutineSave(
+        routineId: Int,
+        baseDay: String
+    ): Flow<RoutineSaveModel> {
+        return routineSaveDao.getLastRoutineSave(routineId, baseDay).map { routineSaveData -> routineSaveData.asModel()}
+    }
+
 }
