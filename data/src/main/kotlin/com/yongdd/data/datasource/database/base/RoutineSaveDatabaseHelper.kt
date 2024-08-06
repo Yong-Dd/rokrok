@@ -24,17 +24,17 @@ import kotlinx.coroutines.CoroutineScope
         StringListConverter::class
     ]
 )
-abstract class RoutineDatabaseHelper : RoomDatabase() {
-    abstract fun routineDao(): RoutineDatabaseDao
+abstract class RoutineSaveDatabaseHelper : RoomDatabase() {
+    abstract fun routineSaveDao() : RoutineSaveDatabaseDao
 
     companion object {
 
         @Volatile
-        private var instance : RoutineDatabaseHelper? = null
+        private var instance : RoutineSaveDatabaseHelper? = null
 
-        fun getDataBase(contextApplication : Context, scope : CoroutineScope) : RoutineDatabaseHelper {
+        fun getDataBase(contextApplication : Context, scope : CoroutineScope) : RoutineSaveDatabaseHelper {
             return instance ?: synchronized(this) {
-                val database = Room.databaseBuilder(contextApplication, RoutineDatabaseHelper::class.java, "RoutineData")
+                val database = Room.databaseBuilder(contextApplication, RoutineSaveDatabaseHelper::class.java, "RoutineSaveData")
                     .addCallback(CallbackDatabaseRoutine(scope))
                     .build()
                 instance = database

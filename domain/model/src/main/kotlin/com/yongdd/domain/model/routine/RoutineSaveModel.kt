@@ -6,5 +6,7 @@ data class RoutineSaveModel (
     val routineDay : String? = null,
     val percent : Int = 0,
     val isShow : Boolean = true,
-    val routine : RoutineModel? = null
+    val routineContent : String? = null,
+    val routineDetail : String? = null,
+    val routineEmoticon : String? = null,
 )

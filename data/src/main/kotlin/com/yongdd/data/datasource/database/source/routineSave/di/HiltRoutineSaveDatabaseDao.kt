@@ -1,6 +1,6 @@
 package com.yongdd.data.datasource.database.source.routineSave.di
 
-import com.yongdd.data.datasource.database.base.RoutineDatabaseHelper
+import com.yongdd.data.datasource.database.base.RoutineSaveDatabaseHelper
 import com.yongdd.data.datasource.database.source.routineSave.dao.RoutineSaveDatabaseDao
 import dagger.Module
 import dagger.Provides
@@ -13,5 +13,5 @@ import javax.inject.Singleton
 class HiltRoutineSaveDatabaseDao {
     @Singleton
     @Provides
-    fun provideRoutineSaveDatabaseDao(routineDatabase: RoutineDatabaseHelper): RoutineSaveDatabaseDao = routineDatabase.routineSaveDao()
+    fun provideRoutineSaveDatabaseDao(routineDatabase: RoutineSaveDatabaseHelper): RoutineSaveDatabaseDao = routineDatabase.routineSaveDao()
 }
