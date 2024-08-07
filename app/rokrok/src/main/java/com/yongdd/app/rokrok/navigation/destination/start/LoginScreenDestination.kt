@@ -1,23 +1,23 @@
-package com.yongdd.app.rokrok.navigation.destination.splash
+package com.yongdd.app.rokrok.navigation.destination.start
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.yongdd.app.rokrok.navigation.HandleCommonEffect
 import com.yongdd.core.ui.base.CommonEvent
-import com.yongdd.presentation.start.splash.SplashContract
-import com.yongdd.presentation.start.splash.SplashViewModel
+import com.yongdd.presentation.start.login.LoginContract
+import com.yongdd.presentation.start.login.LoginViewModel
+import com.yongdd.presentation.start.login.composables.LoginScreenFrame
 import com.yongdd.presentation.start.splash.composables.SplashScreenFrame
 
 @Composable
-fun SplashScreenDestination(
+fun LoginScreenDestination(
     navController: NavController
 ) {
-    val viewModel : SplashViewModel = hiltViewModel()
+    val viewModel : LoginViewModel = hiltViewModel()
 
     val onEventSent = remember {
-        { event : SplashContract.Event ->
+        { event : LoginContract.Event ->
             viewModel.setEvent(event)
         }
     }
@@ -29,12 +29,12 @@ fun SplashScreenDestination(
     }
 
     val onNavigationRequested = remember {
-        { effect: SplashContract.Effect.Navigation ->
+        { effect: LoginContract.Effect.Navigation ->
             handleNavigationRequest(effect, navController)
         }
     }
 
-    SplashScreenFrame(
+    LoginScreenFrame(
         uiState = viewModel.uiState.value,
         loadState = viewModel.loadState.value,
         effectFlow = viewModel.effect,
@@ -44,19 +44,11 @@ fun SplashScreenDestination(
     )
 }
 
-fun handleNavigationRequest(effect: SplashContract.Effect.Navigation, navController: NavController) {
+fun handleNavigationRequest(effect: LoginContract.Effect.Navigation, navController: NavController) {
     when (effect) {
-        is SplashContract.Effect.Navigation.NavigateMain -> {
+        is LoginContract.Effect.Navigation.NavigateMain -> {
           /*  todo : 차후 수정
               navController.navigate("main") {
-                popUpTo("splash") {
-                    inclusive = true
-                }
-            }*/
-        }
-        is SplashContract.Effect.Navigation.NavigateLogin -> {
-         /* todo : 차후 수정
-            navController.navigate("login") {
                 popUpTo("splash") {
                     inclusive = true
                 }
