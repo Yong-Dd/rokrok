@@ -1,0 +1,76 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "2f3d97a22d9243645b689c64bcc3abb1",
+    "entities": [
+      {
+        "tableName": "RoutineSaveData",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`saveId` TEXT NOT NULL, `routineId` INTEGER, `routineDay` TEXT, `percent` INTEGER NOT NULL, `isShow` INTEGER NOT NULL, `routineContent` TEXT, `routineDetail` TEXT, `routineEmoticon` TEXT, PRIMARY KEY(`saveId`))",
+        "fields": [
+          {
+            "fieldPath": "saveId",
+            "columnName": "saveId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "routineId",
+            "columnName": "routineId",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "routineDay",
+            "columnName": "routineDay",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "percent",
+            "columnName": "percent",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isShow",
+            "columnName": "isShow",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "routineContent",
+            "columnName": "routineContent",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "routineDetail",
+            "columnName": "routineDetail",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "routineEmoticon",
+            "columnName": "routineEmoticon",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "saveId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2f3d97a22d9243645b689c64bcc3abb1')"
+    ]
+  }
+}
