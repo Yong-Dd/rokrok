@@ -7,10 +7,13 @@ import com.yongdd.core.ui.base.ViewState
 class LoginContract {
     data class State(
         val isShowWriteNickNamePopUp : Boolean = false,
+        val nickName : String = "",
+        val nickNameMaxLength : Int = 10
     ) : ViewState
 
     sealed class Event : ViewEvent {
         data object GoogleLoginButtonClicked : Event()
+        data class NickNameChanged(val nickName : String) : Event()
         data object NickNameSaveButtonClicked : Event()
     }
 

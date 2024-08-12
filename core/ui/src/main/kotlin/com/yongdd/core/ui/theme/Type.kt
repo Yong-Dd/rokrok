@@ -53,8 +53,22 @@ val Typography = Typography(
     bodyMedium = TextStyle(
         fontFamily = pretendard,
         fontWeight = FontWeight.Normal,
+        fontSize = 14.sp,
+        lineHeight = 18.sp,
+        letterSpacing = 0.5.sp
+    ),
+    bodySmall = TextStyle(
+        fontFamily = pretendard,
+        fontWeight = FontWeight.Normal,
         fontSize = 12.sp,
         lineHeight = 14.sp,
+        letterSpacing = 0.5.sp
+    ),
+    labelLarge = TextStyle(
+        fontFamily = pretendard,
+        fontWeight = FontWeight.Normal,
+        fontSize = 19.sp,
+        lineHeight = 22.sp,
         letterSpacing = 0.5.sp
     ),
     labelSmall = TextStyle(

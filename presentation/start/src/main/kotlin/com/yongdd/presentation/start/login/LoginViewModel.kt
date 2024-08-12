@@ -1,5 +1,6 @@
 package com.yongdd.presentation.start.login
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import com.yongdd.core.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,7 +13,24 @@ class LoginViewModel @Inject constructor(
     override fun setInitialState() = LoginContract.State ()
 
     override fun handleEvents(event: LoginContract.Event) {
-        TODO("Not yet implemented")
+        when(event) {
+            is LoginContract.Event.NickNameChanged -> {
+                setState {
+                    copy(nickName = event.nickName)
+                }
+            }
+
+            is LoginContract.Event.GoogleLoginButtonClicked -> {
+                // todo : 구글 로그인 연결해야 함
+                setState {
+                    copy(isShowWriteNickNamePopUp = true)
+                }
+                Log.d("DDD", "googleLoginButtonClicked ${uiState.value.isShowWriteNickNamePopUp}")
+            }
+            is LoginContract.Event.NickNameSaveButtonClicked -> {
+                // todo : 닉네임 저장해야 함
+            }
+        }
     }
 
     init {
