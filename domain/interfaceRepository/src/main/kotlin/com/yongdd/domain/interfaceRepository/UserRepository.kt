@@ -8,4 +8,8 @@ interface UserRepository {
     suspend fun setUserId(id: String)
     suspend fun getUser(userId : String) : Flow<UserModel>
     suspend fun updateUser(userId : String, nickName : String, message : String, settingEmoji : String, lastUpdateDate : String)
+
+    suspend fun getFiresbaseUserInfo(userId: String)
+    suspend fun updateFiresbaseUserInfo(userId: String, nickName: String, message: String, settingEmoji: String, lastUpdateDate: String)
+
 }

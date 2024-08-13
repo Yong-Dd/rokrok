@@ -60,6 +60,7 @@ dependencies {
 
     implementation(platform(libs.firebase.bom))
     implementation(libs.bundles.firebase.base)
+    implementation(libs.bundles.firebase.server)
 
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose)
@@ -70,4 +71,5 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":domain:usecase"))
     implementation(project(":presentation:main"))
+    implementation(project(":firebase"))
 }
