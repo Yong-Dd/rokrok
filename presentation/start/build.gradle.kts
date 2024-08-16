@@ -44,16 +44,4 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":domain:usecase"))
     implementation(project(":domain:model"))
-
-    /** test **/
-    testImplementation(libs.hilt.navigation.compose)
-    testImplementation(libs.hilt.android.testing)
-    kspTest(libs.hilt.android.compiler)
-    testImplementation(libs.bundles.test.base)
-
-    testImplementation(libs.compose.ui.test.junit4)
-    debugImplementation(libs.compose.ui.test.manifest)
-
-    testImplementation(project(":di:injectRepository"))
-    testImplementation(project(":test"))
 }

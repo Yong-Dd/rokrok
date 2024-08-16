@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.yongdd.presentation.main"
+    namespace = "com.yongdd.di.injectFirebase"
 
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
@@ -21,27 +21,12 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
-
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.kotlinCompilerExtensionVersion.get()
-    }
-
-    testOptions.unitTests.isIncludeAndroidResources = true
 }
 
 dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
-    implementation(platform(libs.compose.bom))
-    implementation(libs.bundles.compose)
-    implementation(libs.compose.material3)
-    implementation(libs.bundles.coil)
 
-    implementation(project(":core:common"))
-    implementation(project(":core:ui"))
-    implementation(project(":domain:usecase"))
-    implementation(project(":domain:model"))
+    implementation(project(":app:rokrok"))
+    implementation(project(":remote"))
 }

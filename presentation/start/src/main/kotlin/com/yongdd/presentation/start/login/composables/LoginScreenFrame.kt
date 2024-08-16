@@ -339,7 +339,7 @@ fun LoginScreenPreview() {
     RokRokTheme {
         LoginScreenContent(
             modifier = Modifier.background(Color.White),
-            uiState = LoginContract.State(isShowWriteNickNamePopUp = false, nickName = "김디디"),
+            uiState = LoginContract.State(isShowWriteNickNamePopUp = true, nickName = "김디디"),
             loadState = LoadState.Idle,
             onEventSent = {},
         )

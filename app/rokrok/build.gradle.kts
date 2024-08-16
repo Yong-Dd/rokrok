@@ -55,7 +55,6 @@ android {
 
 dependencies {
     implementation(libs.hilt.android)
-    implementation(project(":presentation:start"))
     ksp(libs.hilt.android.compiler)
 
     implementation(platform(libs.firebase.bom))
@@ -71,5 +70,6 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":domain:usecase"))
     implementation(project(":presentation:main"))
-    implementation(project(":firebase"))
+    implementation(project(":presentation:start"))
+    implementation(project(":remote"))
 }
