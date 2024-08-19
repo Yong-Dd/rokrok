@@ -47,7 +47,6 @@ dependencies {
     implementation(project(":domain:model"))
     implementation(project(":domain:interfaceRepository"))
     implementation(project(":remote"))
-    implementation(project(":di:injectRemote"))
 
     /** test **/
     testImplementation(libs.hilt.android.testing)

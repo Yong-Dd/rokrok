@@ -1,31 +1,34 @@
-package com.yongdd.app.rokrok.firebase
+package com.yongdd.remote.realtime
 
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.database.DatabaseReference
+import com.yongdd.core.common.log.Logger
 import com.yongdd.core.common.wrapper.CALL_BACK_EMPTY
+import com.yongdd.core.common.wrapper.CALL_BACK_FAIL
 import com.yongdd.core.common.wrapper.CALL_BACK_SUCCESS
-import com.yongdd.remote.realtime.FirebaseRealTimeDatabase
 import com.yongdd.core.common.wrapper.CallBackResult
 import com.yongdd.core.common.wrapper.CallBackSuccess
 import com.yongdd.core.common.wrapper.CallBackFail
 import com.yongdd.remote.realtime.model.UserDto
 import kotlinx.coroutines.suspendCancellableCoroutine
+import javax.inject.Inject
 import kotlin.coroutines.resume
 
-class FirebaseRealTimeDatabaseImpl : FirebaseRealTimeDatabase {
+class FirebaseRealTimeDatabaseImpl @Inject constructor(
+    private val databaseReference: DatabaseReference
+) : FirebaseRealTimeDatabase {
 
-    companion object {
-        private val databaseReference = Firebase.database.reference
-    }
-
-    override suspend fun getUserInfo(userId: String): CallBackResult<UserDto> { // todo : 차후 null 처리 합칠 수 있을지 고려하기
+    override suspend fun getUserInfo(userId: String): CallBackResult<UserDto> {
         return suspendCancellableCoroutine { cancellableContinuation ->
             databaseReference.child(userId).get().addOnSuccessListener { data ->
-              data?.let {
-                  cancellableContinuation.resume(CallBackSuccess(code = CALL_BACK_SUCCESS, data = it.getValue(UserDto::class.java)!!))
-              } ?: cancellableContinuation.resume(CallBackSuccess(code = CALL_BACK_EMPTY, data = UserDto()))
+                Logger.i("getUserInfo : $data")
+                val response = data?.getValue(UserDto::class.java)?.let { userDto ->
+                    CallBackSuccess(code = CALL_BACK_SUCCESS, data = userDto)
+                } ?: CallBackSuccess(code = CALL_BACK_EMPTY, data = UserDto())
+                cancellableContinuation.resume(response)
             }.addOnFailureListener {
-                cancellableContinuation.resume(CallBackFail(code = 1, message = it.message.toString()))
+                cancellableContinuation.resume(
+                    CallBackFail(code = CALL_BACK_FAIL, message = it.message.toString())
+                )
             }
         }
     }

@@ -68,7 +68,6 @@ dependencies {
 
     implementation(project(":core:common"))
     implementation(project(":core:ui"))
-    implementation(project(":domain:usecase"))
     implementation(project(":presentation:main"))
     implementation(project(":presentation:start"))
     implementation(project(":remote"))

@@ -29,11 +29,11 @@ class UserRepositoryImpl @Inject constructor(
         userDataStore.setUserId(id)
     }
 
-    override suspend fun getUser(userId : String): Flow<UserModel> {
+    override suspend fun getUserFromRoom(userId : String): Flow<UserModel> {
         return userDatabaseDao.getUser(userId).map { it.asModel() }
     }
 
-    override suspend fun updateUser(
+    override suspend fun updateUserToRoom(
         userId: String,
         nickName: String,
         message: String,
@@ -43,7 +43,7 @@ class UserRepositoryImpl @Inject constructor(
         userDatabaseDao.updateUser(userId, nickName, message, settingEmoji, lastUpdateDate)
     }
 
-    override suspend fun getRemoteUserInfo(userId: String): CallBackResult<UserModel> {
+    override suspend fun getUserInfoFromRemote(userId: String): CallBackResult<UserModel> {
         userRemoteDataSource.getUserInfoFromId(userId).let { result ->
             return when (result) {
                 is CallBackSuccess -> {
@@ -56,7 +56,7 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun updateRemoteUserInfo(
+    override suspend fun updateUserInfoToRemote(
         userId: String,
         nickName: String,
         message: String,

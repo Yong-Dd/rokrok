@@ -6,20 +6,20 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class UseCaseFirebaseGetUser @Inject constructor(
+class UseCaseGetUserInfo @Inject constructor(
     @DispatcherIO private val dispatcher : CoroutineDispatcher,
     private val userRepository: UserRepository
 ){
     suspend operator fun invoke(userId : String) = withContext(dispatcher) {
-        userRepository.getRemoteUserInfo(userId)
+        userRepository.getUserInfoFromRemote(userId)
     }
 }
 
-class UseCaseFirebaseSetUser @Inject constructor(
+class UseCaseSetUserInfo @Inject constructor(
     @DispatcherIO private val dispatcher : CoroutineDispatcher,
     private val userRepository: UserRepository
 ){
     suspend operator fun invoke(userId: String, nickName: String, message: String, settingEmoji: String, lastUpdateDate: String) = withContext(dispatcher) {
-        userRepository.updateRemoteUserInfo(userId, nickName, message, settingEmoji, lastUpdateDate)
+        userRepository.updateUserInfoToRemote(userId, nickName, message, settingEmoji, lastUpdateDate)
     }
 }

@@ -33,6 +33,9 @@ dependencies {
 
     implementation(libs.gson)
 
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.bundles.firebase.server)
+
     implementation(project(":core:common"))
 
     /** test **/
