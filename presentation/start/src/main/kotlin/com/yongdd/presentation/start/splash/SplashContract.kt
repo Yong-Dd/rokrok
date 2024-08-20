@@ -6,10 +6,13 @@ import com.yongdd.core.ui.base.ViewState
 
 class SplashContract {
     data class State(
+        val userId : String = "",
         val progress: Int = 0
     ) : ViewState
 
     sealed class Event : ViewEvent {
+        data class UserIdCheck(val userId: String) : Event()
+        data object SaveRoutines : Event()
     }
 
     sealed class Effect : ViewSideEffect {
