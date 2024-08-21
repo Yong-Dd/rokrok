@@ -34,7 +34,7 @@ object RoutineUtils {
         routineList : List<RoutineDTO>,
         onGetSaveRoutineList : suspend (searchDate:String) -> List<RoutineDTO>,
         onSaveRoutine : (String, RoutineDTO) -> Unit,
-        onCompleted : () -> Unit
+        onComplete : () -> Unit
     ) {
 
         val today : LocalDate = LocalDate.now()
@@ -53,6 +53,6 @@ object RoutineUtils {
                 }
             }
 
-        onCompleted()
+        onComplete()
     }
 }

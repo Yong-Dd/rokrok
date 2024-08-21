@@ -136,7 +136,7 @@ class SplashViewModel @Inject constructor(
                     )
                 }
             },
-            onCompleted = {
+            onComplete = {
                 setEvent(SplashContract.Event.GoToMain)
             }
         )
