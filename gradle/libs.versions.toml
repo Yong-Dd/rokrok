@@ -1,7 +1,7 @@
 [versions]
 #android version
 compileSdk = "35"
-minSdk = "24"
+minSdk = "26"
 targetSdk = "35"
 kotlinCompilerExtensionVersion = "1.5.4"
 

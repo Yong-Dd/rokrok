@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "f5a8503fd087d1b8a439e55f6dc71e66",
+    "identityHash": "91591af750c628ecfcd151048d10b3de",
     "entities": [
       {
         "tableName": "RoutineData",
@@ -56,7 +56,7 @@
       },
       {
         "tableName": "RoutineSaveData",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`saveId` TEXT NOT NULL, `routineId` INTEGER, `routineDay` TEXT, `percent` INTEGER NOT NULL, `isShow` INTEGER NOT NULL, `routineContent` TEXT, `routineDetail` TEXT, `routineEmoticon` TEXT, PRIMARY KEY(`saveId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`saveId` TEXT NOT NULL, `routineId` INTEGER NOT NULL, `routineDay` TEXT, `percent` INTEGER NOT NULL, `isShow` INTEGER NOT NULL, `routineContent` TEXT, `routineDetail` TEXT, `routineEmoticon` TEXT, PRIMARY KEY(`saveId`))",
         "fields": [
           {
             "fieldPath": "saveId",
@@ -68,7 +68,7 @@
             "fieldPath": "routineId",
             "columnName": "routineId",
             "affinity": "INTEGER",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "routineDay",
@@ -214,7 +214,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f5a8503fd087d1b8a439e55f6dc71e66')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '91591af750c628ecfcd151048d10b3de')"
     ]
   }
 }

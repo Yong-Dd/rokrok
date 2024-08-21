@@ -19,7 +19,7 @@ import com.yongdd.domain.model.routine.RoutineSaveModel
 data class RoutineSaveData(
     @PrimaryKey
     val saveId : String,
-    val routineId : Int? = null,
+    val routineId : Int,
     val routineDay : String? = null,
     val percent : Int = 0,
     val isShow : Boolean = true,
@@ -30,7 +30,7 @@ data class RoutineSaveData(
 
 fun RoutineSaveData.asModel() = RoutineSaveModel(
     saveId = saveId,
-    routineId = routineId,
+    routineId =  routineId,
     routineDay = routineDay,
     percent = percent,
     isShow = isShow,

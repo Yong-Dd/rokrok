@@ -250,12 +250,11 @@ abstract class BaseViewModel<UiState : ViewState, Event : ViewEvent, Effect : Vi
         block : suspend CoroutineScope.() -> Unit
     ) : Job {
         return scope.launch(context, start) {
-            withContext(Dispatchers.Main) {
-                withContext(context = context) {
-                    withTimeout(delayTime) {
-                        block.invoke(this)
-                    }
+            withContext(context = context) {
+                withTimeout(delayTime) {
+                    block.invoke(this)
                 }
+
             }
         }.apply {
             invokeOnCompletion { cause : Throwable? ->
@@ -276,10 +275,8 @@ abstract class BaseViewModel<UiState : ViewState, Event : ViewEvent, Effect : Vi
         block : suspend CoroutineScope.() -> Unit
     ) : Job {
         return scope.launch(context, start) {
-            withContext(Dispatchers.Main) {
-                withContext(context = context) {
-                    block.invoke(this)
-                }
+            withContext(context = context) {
+                block.invoke(this)
             }
         }.apply {
             invokeOnCompletion { cause : Throwable? ->
