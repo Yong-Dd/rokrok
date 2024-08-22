@@ -6,6 +6,9 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.ui.graphics.Color
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.yongdd.app.rokrok.navigation.AppNavigation
 import com.yongdd.core.ui.theme.RokRokTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,20 +18,16 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge(
-            navigationBarStyle = SystemBarStyle.light(Color.White.copy(alpha = 0.1f).hashCode(), Color.White.copy(alpha = 0.1f).hashCode())
+            navigationBarStyle = SystemBarStyle.light(Color.Transparent.hashCode(), Color.Transparent.hashCode())
         )
-//        WindowCompat.setDecorFitsSystemWindows(window, false)
-//        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightNavigationBars = true // 탐색 버튼 아이콘을 밝은 색으로 설정
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightNavigationBars = false
 
         setContent {
             RokRokTheme {
                 AppNavigation()
             }
         }
-        // todo 1 : id 값을 통해 가져와야함(있는지 확인해야함)
-        // todo 2 : 값을 업뎃 및 추가해야함 (여기서도 id 값이 필요함)
-
-
 
     }
 }

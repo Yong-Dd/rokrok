@@ -4,13 +4,15 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,14 +25,17 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -146,6 +151,7 @@ fun LoginScreenContent(
         AnimatedVisibility(
             modifier =  Modifier.align(Alignment.Center),
             visible = !uiState.isShowWriteNickNamePopUp,
+            enter = fadeIn(animationSpec = tween(400)),
             exit = fadeOut(animationSpec = tween(400))
         ) {
             LoginBox(
@@ -154,7 +160,6 @@ fun LoginScreenContent(
                 }
             )
         }
-
 
         // 왼쪽 위 R
         Image(
@@ -167,13 +172,26 @@ fun LoginScreenContent(
                 .padding(top = 6.7.dp)
         )
 
+        // 오른쪽 아래 k
+        Image(
+            painter = painterResource(id = R.drawable.img_k_bottom),
+            contentDescription = "",
+            contentScale = ContentScale.FillHeight,
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .fillMaxHeight(0.19f)
+                .padding(bottom = 33.3.dp)
+        )
+
         // 닉네임 작성
         AnimatedVisibility(
             modifier =  Modifier.align(Alignment.TopCenter),
             visible = uiState.isShowWriteNickNamePopUp,
-            enter = fadeIn(animationSpec = tween(400))
+            enter = slideInHorizontally { it } + fadeIn(animationSpec = tween(400)),
+            exit = slideOutHorizontally { it } + fadeOut(animationSpec = tween(400))
         ) {
             LoginWriteNickNameBox(
+                modifier = Modifier.padding(top = 25.dp),
                 nickName =  uiState.nickName,
                 nickNameMaxLength = uiState.nickNameMaxLength,
                 onNickNameChanged = {
@@ -185,17 +203,6 @@ fun LoginScreenContent(
             )
         }
 
-
-        // 오른쪽 아래 k
-        Image(
-            painter = painterResource(id = R.drawable.img_k_bottom),
-            contentDescription = "",
-            contentScale = ContentScale.FillHeight,
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .fillMaxHeight(0.19f)
-                .padding(bottom = 33.3.dp)
-        )
     }
 }
 
@@ -239,6 +246,7 @@ fun LoginBox(
             contentScale = ContentScale.FillWidth,
             modifier = Modifier
                 .fillMaxWidth(0.63f)
+                .clip(RoundedCornerShape(40.dp))
                 .clickable {
                     onGoogleLoginClicked()
                 }
@@ -254,41 +262,50 @@ fun LoginWriteNickNameBox(
      onNickNameChanged: (String) -> Unit,
      onNickNameSaveButtonClicked: () -> Unit
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val focusManager = LocalFocusManager.current
+
     Column(
         modifier = modifier
-            .fillMaxWidth(0.8f)
-            .fillMaxHeight(0.66f)
-            .padding(top = 145.dp)
+            .fillMaxSize()
             .paint(
-                painter = painterResource(id = R.drawable.img_login_box_small),
-                contentScale = ContentScale.FillHeight
-            ),
-        horizontalAlignment = Alignment.CenterHorizontally
+                painter = painterResource(id = R.drawable.img_login_box_big),
+                contentScale = ContentScale.FillBounds
+            )
+            .padding(bottom = 35.7.dp)
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null
+            ) {
+              keyboardController?.hide()
+              focusManager.clearFocus()
+            },
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         Image(
             painter = painterResource(id = R.drawable.img_login_logo),
             contentDescription = "logo : RokRok",
             contentScale = ContentScale.FillWidth,
             modifier = Modifier
-                .fillMaxWidth(0.74f)
-                .padding(top = 50.dp)
+                .fillMaxWidth(0.59f)
         )
         Text(
             text = stringResource(id = R.string.write_your_nickname),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.bodyLarge.copy(
-                fontSize = 19.2.sp,
+                fontSize = 21.sp,
                 fontWeight = FontWeight.SemiBold,
-                lineHeight = 23.sp
+                lineHeight = 25.sp
             ),
             color = Color.White,
-            modifier = Modifier.padding(top = 75.8.dp, bottom = 22.dp)
+            modifier = Modifier.padding(top = 27.dp, bottom = 26.dp)
         )
 
         Box(
             modifier = Modifier
                 .padding(bottom = 24.dp)
-                .fillMaxWidth(0.74f)
+                .fillMaxWidth(0.67f)
         ) {
             Image(
                 painter = painterResource(id = R.drawable.img_login_textfield),
@@ -302,15 +319,17 @@ fun LoginWriteNickNameBox(
                     if(it.length <= nickNameMaxLength) onNickNameChanged(it)
                 },
                 singleLine = true,
-                textStyle = MaterialTheme.typography.bodyMedium,
+                textStyle = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier
                     .align(Alignment.CenterStart)
                     .fillMaxWidth()
-                    .padding(horizontal = 10.dp, vertical = 5.dp)
+                    .padding(horizontal = 30.dp)
+                    .padding(top = 18.dp, bottom = 23.dp)
             )
         }
 
         Button(
+            modifier = Modifier.fillMaxWidth(0.24f).height(42.dp),
             shape = RoundedCornerShape(40.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Transparent
@@ -322,10 +341,10 @@ fun LoginWriteNickNameBox(
         ) {
             Text(
                 text= stringResource(id = R.string.confirm),
-                style = MaterialTheme.typography.bodyLarge.copy(
-                    fontSize = 19.2.sp,
+                style = MaterialTheme.typography.labelLarge.copy(
+                    fontSize = 21.sp,
                     fontWeight = FontWeight.SemiBold,
-                    lineHeight = 23.sp
+                    lineHeight = 25.sp
                 ),
             )
         }
