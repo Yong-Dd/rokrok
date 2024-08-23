@@ -5,6 +5,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.yongdd.core.common.log.Logger
 import com.yongdd.core.common.resource.StringValue
 import com.yongdd.core.ui.R
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -94,6 +95,12 @@ sealed class CommonEvent : ViewEvent {
     data object OnDestroy : CommonEvent()
 
     /**
+     * firebase - auth
+     * */
+    data class GoogleLoginSuccessResult(val id : String) : CommonEvent()
+    data class GoogleLoginFailResult(val error : String) : CommonEvent()
+
+    /**
      * etc
      * */
     data object CloseEvent : CommonEvent()
@@ -101,6 +108,7 @@ sealed class CommonEvent : ViewEvent {
 }
 
 sealed class CommonEffect : ViewSideEffect {
+    data object GoogleLoginEffect : CommonEffect()
     sealed class Navigation : CommonEffect() {
         data object NavigateMain : Navigation()
         data object NavigateBack : Navigation()
@@ -129,6 +137,8 @@ abstract class BaseViewModel<UiState : ViewState, Event : ViewEvent, Effect : Vi
             is CommonEvent.OnDestroy -> {}
             is CommonEvent.CloseEvent -> {}
             is CommonEvent.ApplicationExitEvent -> {}
+            is CommonEvent.GoogleLoginFailResult -> {}
+            is CommonEvent.GoogleLoginSuccessResult -> {}
         }
     }
 
@@ -202,7 +212,11 @@ abstract class BaseViewModel<UiState : ViewState, Event : ViewEvent, Effect : Vi
     }
 
     protected fun setCommonEffect(builder : () -> CommonEffect) {
-        scope.launch { _commonEffect.send(builder()) }
+//        Logger.d("setCommonEffect called","DDD")
+//        scope.launch { _commonEffect.send(builder()) }
+        val effectValue = builder()
+        Logger.print(message = "<Effect> ${effectValue::class.simpleName}", tag = Logger.BASIC_TAG_NAME)
+        scope.launch { _commonEffect.send(effectValue) }
     }
 
     /**

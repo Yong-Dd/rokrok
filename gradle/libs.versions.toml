@@ -18,6 +18,7 @@ coil = "2.2.2"
 googleService = "4.4.2"
 firebase = "33.1.2"
 firebaseCrashlytics = "3.0.1"
+firebaseUiAuth = "7.2.0"
 
 #compose
 activityCompose = "1.9.1"
@@ -86,6 +87,7 @@ firebase-auth = { group = "com.google.firebase", name = "firebase-auth-ktx" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
 firebase-database = { group = "com.google.firebase", name = "firebase-database-ktx"}
 firebase-storage = { group = "com.google.firebase", name = "firebase-storage" }
+firebase-ui = { group = "com.firebaseui", name = "firebase-ui-auth", version.ref = "firebaseUiAuth" }
 
 #preference
 datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastorePreferences" }
@@ -113,5 +115,5 @@ coil = ["coil-compose", "coil-gif"]
 navigation = ["navigation-compose", "hilt-navigation-compose"]
 room = ["room-ktx", "room-runtime"]
 test-base = ["kotlinx-coroutines-test", "robolectric", "truth"]
-firebase-base = ["firebase-auth", "firebase-crashlytics"]
+firebase-base = ["firebase-auth", "firebase-ui", "firebase-crashlytics"]
 firebase-server = ["firebase-database", "firebase-storage"]

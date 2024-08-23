@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.yongdd.app.rokrok.navigation.HandleCommonEffect
 import com.yongdd.core.ui.base.CommonEvent
 import com.yongdd.presentation.start.login.LoginContract
 import com.yongdd.presentation.start.login.LoginViewModel
@@ -33,6 +34,8 @@ fun LoginScreenDestination(
             handleNavigationRequest(effect, navController)
         }
     }
+
+    HandleCommonEffect(commonEffectFlow = viewModel.commonEffect, onCommonEventSent = onCommonEventSent, navController = navController)
 
     LoginScreenFrame(
         uiState = viewModel.uiState.value,
