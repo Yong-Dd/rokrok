@@ -58,8 +58,9 @@ dependencies {
     ksp(libs.hilt.android.compiler)
 
     implementation(platform(libs.firebase.bom))
-    implementation(libs.bundles.firebase.base)
     implementation(libs.bundles.firebase.server)
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.bundles.auth)
 
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose)

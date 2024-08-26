@@ -35,14 +35,15 @@ fun HandleCommonEffect(
     val googleSignInLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        Logger.d("google sign launcher called $result","DDD")
+        Logger.d("google sign launcher called ${result.data?.data}","DDD")
         GoogleSignIn.getSignedInAccountFromIntent(result.data)
             .addOnSuccessListener {
-                googleAuth(context, it.idToken?: "", onCommonEventSent)
-                Logger.d("google sign launcher success $it","DDD")
+                it.id?.let { id ->
+                    onCommonEventSent(CommonEvent.GoogleLoginSuccessResult(id))
+                } ?: onCommonEventSent(CommonEvent.GoogleLoginFailResult("id is null"))
             }.addOnFailureListener {
                 onCommonEventSent(CommonEvent.GoogleLoginFailResult(it.toString()))
-                Logger.d("google sign launcher fail $it","DDD")
+                Logger.d("google sign Fail : $it","DDD")
             }
     }
 
@@ -67,24 +68,4 @@ fun HandleCommonEffect(
             }
         }.collect()
     }
-}
-
-fun googleAuth(context: Context, idToken : String, onCommonEventSent: (event: CommonEvent) -> Unit){
-    Logger.d("google auth called","DDD")
-    val credential = GoogleAuthProvider.getCredential(idToken, null)
-    val auth = Firebase.auth
-    auth.signInWithCredential(credential)
-        .addOnCompleteListener(context as Activity) { task ->
-            if (task.isSuccessful) {
-                Logger.d("google auth success $task","DDD")
-                val user = auth.currentUser
-                onCommonEventSent(CommonEvent.GoogleLoginSuccessResult(user?.uid?:""))
-            } else {
-                Logger.d("google auth error $task","DDD")
-                onCommonEventSent(CommonEvent.GoogleLoginFailResult(task.exception.toString()))
-            }
-        }
-        .addOnFailureListener {
-            onCommonEventSent(CommonEvent.GoogleLoginFailResult(it.toString()))
-        }
 }

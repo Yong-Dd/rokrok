@@ -29,7 +29,6 @@ class SplashViewModel @Inject constructor(
     private val useCaseGetUserId : UseCaseGetUserId,
     private val useCaseGetUserInfoFromRemote : UseCaseGetUserInfoFromRemote,
     private val useCaseUpdateUserToRoom: UseCaseUpdateUserToRoom,
-
     private val useCaseGetAllRoutine: UseCaseGetAllRoutine,
     private val useCaseGetSaveRoutineList: UseCaseGetSaveRoutineList,
     private val useCaseAddSaveRoutine: UseCaseAddSaveRoutine,
@@ -47,7 +46,7 @@ class SplashViewModel @Inject constructor(
         when(event) {
             is SplashContract.Event.UserIdCheck -> {
                 if(event.userId.isEmpty()) {
-                    setEffect { SplashContract.Effect.Navigation.NavigateLogin }
+                    setEffect { SplashContract.Effect.Navigation.NavigateLogin(event.userId) }
                 } else {
                     setState { copy(progress = 10) }
                     checkRemoteUserInfo(event.userId)
@@ -87,9 +86,9 @@ class SplashViewModel @Inject constructor(
                        data.lastUpdateDate?.let {
                            setState { copy(lastUpdateDate = it)  }
                        }
-                       setEvent(SplashContract.Event.GoToMain)
+                       setEvent(SplashContract.Event.UpdateRoutineList)
                    } else {
-                       setEffect { SplashContract.Effect.Navigation.NavigateLogin }
+                       setEffect { SplashContract.Effect.Navigation.NavigateLogin(userId) }
                    }
                 }
                 is CallBackFail -> {

@@ -16,6 +16,7 @@ coil = "2.2.2"
 
 # google, firebase
 googleService = "4.4.2"
+googleAuth = "20.7.0"
 firebase = "33.1.2"
 firebaseCrashlytics = "3.0.1"
 firebaseUiAuth = "7.2.0"
@@ -89,6 +90,9 @@ firebase-database = { group = "com.google.firebase", name = "firebase-database-k
 firebase-storage = { group = "com.google.firebase", name = "firebase-storage" }
 firebase-ui = { group = "com.firebaseui", name = "firebase-ui-auth", version.ref = "firebaseUiAuth" }
 
+#google
+google-auth =  { group = "com.google.android.gms", name = "play-services-auth", version.ref = "googleAuth" }
+
 #preference
 datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastorePreferences" }
 
@@ -116,4 +120,5 @@ navigation = ["navigation-compose", "hilt-navigation-compose"]
 room = ["room-ktx", "room-runtime"]
 test-base = ["kotlinx-coroutines-test", "robolectric", "truth"]
 firebase-base = ["firebase-auth", "firebase-ui", "firebase-crashlytics"]
+auth = ["firebase-auth", "firebase-ui", "google-auth"]
 firebase-server = ["firebase-database", "firebase-storage"]

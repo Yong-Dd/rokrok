@@ -15,6 +15,7 @@ class LoginContract {
         data object GoogleLoginButtonClicked : Event()
         data class NickNameChanged(val nickName : String) : Event()
         data object NickNameSaveButtonClicked : Event()
+        data object GoToMain : Event()
     }
 
     sealed class Effect : ViewSideEffect {

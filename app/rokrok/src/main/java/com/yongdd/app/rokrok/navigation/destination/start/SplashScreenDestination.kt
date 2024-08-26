@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.yongdd.app.rokrok.navigation.navigateLoginScreen
 import com.yongdd.core.ui.base.CommonEvent
 import com.yongdd.presentation.start.login.Navigation.Routes.LOGIN
 import com.yongdd.presentation.start.splash.Navigation.Routes.SPLASH
@@ -56,11 +57,7 @@ fun handleNavigationRequest(effect: SplashContract.Effect.Navigation, navControl
             }*/
         }
         is SplashContract.Effect.Navigation.NavigateLogin -> {
-            navController.navigate(LOGIN) {
-                popUpTo(SPLASH) {
-                    inclusive = true
-                }
-            }
+            navController.navigateLoginScreen(effect.userId)
         }
     }
 }

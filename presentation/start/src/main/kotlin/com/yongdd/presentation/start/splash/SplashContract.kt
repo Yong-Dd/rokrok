@@ -22,7 +22,7 @@ class SplashContract {
 
     sealed class Effect : ViewSideEffect {
         sealed class Navigation : Effect() {
-            data object NavigateLogin : Navigation()
+            data class NavigateLogin(val userId:String) : Navigation()
             data object NavigateMain : Navigation()
         }
     }
