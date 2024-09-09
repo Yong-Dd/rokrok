@@ -15,7 +15,12 @@ import com.yongdd.data.datasource.database.source.routineSave.dao.RoutineSaveDat
 import com.yongdd.data.datasource.database.source.routineSave.model.RoutineSaveData
 import com.yongdd.data.datasource.database.source.user.dao.UserDatabaseDao
 import com.yongdd.data.datasource.database.source.user.model.UserData
+import com.yongdd.data.datasource.datastore.UserDatastore
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 
 @Database(
     version = 1,
@@ -43,10 +48,20 @@ abstract class RoomDatabaseHelper : RoomDatabase() {
 
         @Volatile
         private var instance : RoomDatabaseHelper? = null
+        private var cachedUserId : String? = null
 
-        fun getDataBase(contextApplication : Context, scope : CoroutineScope) : RoomDatabaseHelper {
+        fun getDataBase(contextApplication : Context, scope : CoroutineScope, userDatastore: UserDatastore) : RoomDatabaseHelper {
             return instance ?: synchronized(this) {
-                val database = Room.databaseBuilder(contextApplication, RoomDatabaseHelper::class.java, "rokrok")
+                val userId: String = cachedUserId ?: runBlocking {
+                    val deferredUserId = scope.async {
+                        userDatastore.getUserId()
+                    }
+                    val userId = deferredUserId.await()
+                    cachedUserId = userId
+                    userId
+                }
+
+                val database = Room.databaseBuilder(contextApplication, RoomDatabaseHelper::class.java, "rokrok_$userId")
                     .addCallback(CallbackDatabaseRoutine(scope))
                     .addTypeConverter(StringListConverter())
                     .build()

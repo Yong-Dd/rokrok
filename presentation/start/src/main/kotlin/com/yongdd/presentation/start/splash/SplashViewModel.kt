@@ -45,7 +45,7 @@ class SplashViewModel @Inject constructor(
     override fun handleEvents(event: SplashContract.Event) {
         when(event) {
             is SplashContract.Event.UserIdCheck -> {
-                if(event.userId.isEmpty()) {
+                if(event.userId.isNotEmpty()) {
                     setEffect { SplashContract.Effect.Navigation.NavigateLogin(event.userId) }
                 } else {
                     setState { copy(progress = 10) }

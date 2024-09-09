@@ -4,4 +4,3 @@ object ArgName {
     const val nameUserId = "nameUserId"
 }
 
-ob

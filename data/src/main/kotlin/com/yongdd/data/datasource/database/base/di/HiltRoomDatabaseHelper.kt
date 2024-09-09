@@ -1,7 +1,9 @@
 package com.yongdd.data.datasource.database.base.di
 
 import android.content.Context
+import android.service.autofill.UserData
 import com.yongdd.data.datasource.database.base.RoomDatabaseHelper
+import com.yongdd.data.datasource.datastore.UserDatastore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,6 +19,7 @@ class HiltRoomDatabaseHelper {
     @Singleton
     @Provides
     fun provideHiltRoomDatabaseHelper(
-        @ApplicationContext context: Context
-    ) = RoomDatabaseHelper.getDataBase(context, CoroutineScope(SupervisorJob()))
+        @ApplicationContext context: Context,
+        userDatastore : UserDatastore,
+    ) = RoomDatabaseHelper.getDataBase(context, CoroutineScope(SupervisorJob()), userDatastore)
 }
