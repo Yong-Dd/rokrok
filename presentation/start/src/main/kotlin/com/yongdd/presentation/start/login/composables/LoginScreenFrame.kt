@@ -149,7 +149,7 @@ fun LoginScreenContent(
 
         // 로그인 화면
         AnimatedVisibility(
-            modifier =  Modifier.align(Alignment.Center),
+            modifier = Modifier.align(Alignment.Center),
             visible = !uiState.isShowWriteNickNamePopUp,
             enter = fadeIn(animationSpec = tween(400)),
             exit = fadeOut(animationSpec = tween(400))
@@ -185,14 +185,14 @@ fun LoginScreenContent(
 
         // 닉네임 작성
         AnimatedVisibility(
-            modifier =  Modifier.align(Alignment.TopCenter),
+            modifier = Modifier.align(Alignment.TopCenter),
             visible = uiState.isShowWriteNickNamePopUp,
             enter = slideInHorizontally { it } + fadeIn(animationSpec = tween(400)),
             exit = slideOutHorizontally { it } + fadeOut(animationSpec = tween(400))
         ) {
             LoginWriteNickNameBox(
                 modifier = Modifier.padding(top = 25.dp),
-                nickName =  uiState.nickName,
+                nickName = uiState.nickName,
                 nickNameMaxLength = uiState.nickNameMaxLength,
                 onNickNameChanged = {
                     onEventSent(LoginContract.Event.NickNameChanged(it))
@@ -208,7 +208,7 @@ fun LoginScreenContent(
 
 @Composable
 fun LoginBox(
-    modifier : Modifier = Modifier,
+    modifier: Modifier = Modifier,
     onGoogleLoginClicked: () -> Unit
 ) {
     Column(
@@ -256,11 +256,11 @@ fun LoginBox(
 
 @Composable
 fun LoginWriteNickNameBox(
-     modifier : Modifier = Modifier,
-     nickName: String,
-     nickNameMaxLength: Int,
-     onNickNameChanged: (String) -> Unit,
-     onNickNameSaveButtonClicked: () -> Unit
+    modifier: Modifier = Modifier,
+    nickName: String,
+    nickNameMaxLength: Int,
+    onNickNameChanged: (String) -> Unit,
+    onNickNameSaveButtonClicked: () -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
@@ -277,8 +277,8 @@ fun LoginWriteNickNameBox(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null
             ) {
-              keyboardController?.hide()
-              focusManager.clearFocus()
+                keyboardController?.hide()
+                focusManager.clearFocus()
             },
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -316,7 +316,7 @@ fun LoginWriteNickNameBox(
             BasicTextField(
                 value = nickName,
                 onValueChange = {
-                    if(it.length <= nickNameMaxLength) onNickNameChanged(it)
+                    if (it.length <= nickNameMaxLength) onNickNameChanged(it)
                 },
                 singleLine = true,
                 textStyle = MaterialTheme.typography.bodyLarge,
@@ -329,7 +329,9 @@ fun LoginWriteNickNameBox(
         }
 
         Button(
-            modifier = Modifier.fillMaxWidth(0.24f).height(42.dp),
+            modifier = Modifier
+                .fillMaxWidth(0.24f)
+                .height(42.dp),
             shape = RoundedCornerShape(40.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Transparent
@@ -340,7 +342,7 @@ fun LoginWriteNickNameBox(
             }
         ) {
             Text(
-                text= stringResource(id = R.string.confirm),
+                text = stringResource(id = R.string.confirm),
                 style = MaterialTheme.typography.labelLarge.copy(
                     fontSize = 21.sp,
                     fontWeight = FontWeight.SemiBold,

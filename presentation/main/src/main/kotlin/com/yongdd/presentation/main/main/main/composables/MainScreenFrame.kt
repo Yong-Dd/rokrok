@@ -1,13 +1,38 @@
 package com.yongdd.presentation.main.main.main.composables
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.yongdd.core.ui.base.BaseScreen
 import com.yongdd.core.ui.base.CommonEvent
 import com.yongdd.core.ui.base.LoadState
 import com.yongdd.core.ui.base.SIDE_EFFECTS_KEY
+import com.yongdd.core.ui.theme.RokRokTheme
+import com.yongdd.domain.model.user.UserModel
+import com.yongdd.presentation.main.R
 import com.yongdd.presentation.main.main.main.MainContract
 import com.yongdd.presentation.main.main.main.Navigation.Routes.MAIN
 import kotlinx.coroutines.flow.SharedFlow
@@ -40,7 +65,8 @@ fun MainScreenFrame(
     ) {
         MainScreenContent(
             uiState = uiState,
-            loadState = loadState
+            loadState = loadState,
+            onEventSent = onEventSent
         )
     }
 }
@@ -49,7 +75,87 @@ fun MainScreenFrame(
 fun MainScreenContent(
     modifier: Modifier = Modifier,
     uiState: MainContract.State,
-    loadState: LoadState
+    loadState: LoadState,
+    onEventSent: (event: MainContract.Event) -> Unit
 ) {
-    Text(text = "메인화면")
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .paint(
+                painter = painterResource(id = R.drawable.img_back_main_theme1)
+            )
+    ) {
+        MyInfoContent(
+            modifier = Modifier.padding(top = 142.dp),
+            uiState = uiState,
+            onEventSent = onEventSent)
+    }
+}
+
+@Composable
+fun MyInfoContent(
+    modifier: Modifier,
+    uiState: MainContract.State,
+    onEventSent: (event: MainContract.Event) -> Unit
+){
+    Row(
+        modifier = modifier.padding(start = 33.6.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Box(
+            modifier = Modifier
+                .size(58.dp)
+                .clip(RoundedCornerShape(29.dp))
+                .border(1.dp, Color.White, RoundedCornerShape(29.dp))
+                .background(Color.White.copy(alpha = 0.2f))
+        ) {
+            Text(
+                text = uiState.userInfo.settingEmoji ?: "",
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .padding(bottom = 2.dp),
+                textAlign = TextAlign.Center,
+                fontSize = 30.sp
+            )
+        }
+
+        Column(
+            modifier = Modifier
+                .padding(start = 14.4.dp)
+        ) {
+            Text(
+                text = uiState.userInfo.nickName ?: "",
+                style = MaterialTheme.typography.bodyLarge.copy(
+                    fontSize = 19.2.sp,
+                    fontWeight = FontWeight.SemiBold,
+                ),
+                color = Color.White
+            )
+            Text(
+                text = uiState.userInfo.message ?: "",
+                modifier = Modifier.padding(top = 4.5.dp),
+                style = MaterialTheme.typography.bodySmall,
+                color = Color.White
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+fun MainScreenPreview() {
+    RokRokTheme {
+        MainScreenContent(
+            modifier = Modifier.background(Color.White),
+            uiState = MainContract.State(
+                userInfo = UserModel(
+                    nickName = "SUPULBERRY",
+                    message = "RokRok! 함께할 준비 되셨나요?🚀",
+                    settingEmoji = "⚙\uFE0F"
+                )
+            ),
+            loadState = LoadState.Idle,
+            onEventSent = {},
+        )
+    }
 }
