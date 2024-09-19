@@ -5,6 +5,7 @@ import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.yongdd.app.rokrok.navigation.HandleCommonEffect
+import com.yongdd.app.rokrok.navigation.navigateMainScreen
 import com.yongdd.core.ui.base.CommonEvent
 import com.yongdd.presentation.start.login.LoginContract
 import com.yongdd.presentation.start.login.LoginViewModel
@@ -50,12 +51,7 @@ fun LoginScreenDestination(
 fun handleNavigationRequest(effect: LoginContract.Effect.Navigation, navController: NavController) {
     when (effect) {
         is LoginContract.Effect.Navigation.NavigateMain -> {
-          /*  todo : 차후 수정
-              navController.navigate("main") {
-                popUpTo("splash") {
-                    inclusive = true
-                }
-            }*/
+            navController.navigateMainScreen()
         }
     }
 }

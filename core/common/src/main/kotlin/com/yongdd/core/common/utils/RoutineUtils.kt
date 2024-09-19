@@ -15,7 +15,7 @@ fun getDayOfWeek(dayOfWeek: Int): String {
     return dayOfWeekMap[dayOfWeek] ?: "UNKNOWN"
 }
 
-// 요일 숫자와 문자 매핑 -> todo :enum 추가할지 고민하기
+// 요일 숫자와 문자 매핑
 val dayOfWeekMap = mapOf(
     1 to "SUN",
     2 to "MON",
