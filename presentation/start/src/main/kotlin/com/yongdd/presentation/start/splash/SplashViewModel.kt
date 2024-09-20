@@ -71,8 +71,10 @@ class SplashViewModel @Inject constructor(
 
     init {
         launchWithException {
+            setEffect { SplashContract.Effect.Navigation.NavigateLogin("DDD") }
+/*             todo : 테스트 중 임시 변경, 차후 원복 해야 함
             val userId : String = useCaseGetUserId.invoke()
-            setEvent(SplashContract.Event.UserIdCheck(userId))
+            setEvent(SplashContract.Event.UserIdCheck(userId))  */
         }
     }
 

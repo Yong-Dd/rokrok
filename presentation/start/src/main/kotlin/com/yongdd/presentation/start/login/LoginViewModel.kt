@@ -51,16 +51,22 @@ class LoginViewModel @Inject constructor(
             }
 
             is LoginContract.Event.GoogleLoginButtonClicked -> {
-                Logger.d("google login clicked","DDD")
+                setState {
+                    copy(isShowWriteNickNamePopUp = true)
+                }
+
+                /** todo : 테스트 중으로 나중에 원복 해야함
                 setCommonEffect {
                     CommonEffect.GoogleLoginEffect
-                }
+                }*/
             }
 
             is LoginContract.Event.NickNameSaveButtonClicked -> {
                 setState {
                     copy(isShowWriteNickNamePopUp = false)
                 }
+                // todo : 테스트 중으로 나중에 처리해야함
+                setEffect { LoginContract.Effect.Navigation.NavigateMain }
             }
             else -> {}
         }

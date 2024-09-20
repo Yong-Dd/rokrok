@@ -78,6 +78,7 @@ val Typography = Typography(
         letterSpacing = 0.5.sp
     ),
     labelMedium = TextStyle(
+        fontFamily = pretendard,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         lineHeight = 20.sp,

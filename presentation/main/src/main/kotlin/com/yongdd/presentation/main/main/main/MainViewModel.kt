@@ -11,6 +11,14 @@ class MainViewModel @Inject constructor(
 )  : BaseViewModel<MainContract.State, MainContract.Event, MainContract.Effect>() {
     override fun setInitialState() = MainContract.State()
     override fun handleEvents(event: MainContract.Event) {
+        when(event) {
+            is MainContract.Event.PageChanged -> {
+                if(event.page == uiState.value.currentPage) return
+                setState {
+                    copy(currentPage = event.page)
+                }
+            }
+        }
     }
 
 }

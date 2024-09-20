@@ -15,6 +15,7 @@ class MainContract {
         val mainDiary :MainScreen.MainDiary = MainScreen.MainDiary(),
         val mainStatistics :MainScreen.MainStatistics = MainScreen.MainStatistics(),
         val userInfo : UserModel = UserModel(
+            nickName = "반갑습니다🙌",
             message = "RokRok! 함께할 준비 되셨나요?🚀",
             settingEmoji = "⚙\uFE0F"
         )
