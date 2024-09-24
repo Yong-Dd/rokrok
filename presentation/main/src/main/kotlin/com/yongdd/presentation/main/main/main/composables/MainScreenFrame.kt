@@ -120,7 +120,6 @@ fun MainScreenContent(
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // todo : 애니메이션 처음엔 안나오도록 확인
         AnimatedVisibility(
             modifier = Modifier,
             visible = pagerState.currentPage == 1,
@@ -157,6 +156,7 @@ fun MainScreenContent(
                 when (page) {
                     0 -> {
                         MainDiaryScreenFrame(
+                            modifier = Modifier.padding(top = 29.dp),
                             mainDiary = uiState.mainDiary,
                             onDiaryClick = {}
                         )
@@ -164,6 +164,7 @@ fun MainScreenContent(
 
                     1 -> {
                         MainRoutineScreenFrame(
+                            modifier = Modifier.padding(top = 29.dp),
                             mainRoutine = uiState.mainRoutine,
                             onRoutineClick = {}
                         )
@@ -171,6 +172,7 @@ fun MainScreenContent(
 
                     2 -> {
                         MainStatisticsScreenFrame(
+                            modifier = Modifier.padding(top = 29.dp),
                             mainStatistics = uiState.mainStatistics
                         )
                     }

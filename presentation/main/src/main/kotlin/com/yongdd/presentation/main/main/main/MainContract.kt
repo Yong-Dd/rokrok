@@ -34,12 +34,12 @@ class MainContract {
 
     sealed class MainScreen {
         data class MainRoutine(
-            val routineList : List<RoutineModel>? = null,
+            val routineList : List<RoutineModel> = emptyList(),
             val currentDate : String? = null,
         ) : MainScreen()
         data class MainDiary(
             val currentDate: String? = null,
-            val diaryList : List<DiaryModel>? = null,
+            val diaryList : List<DiaryModel> = emptyList(),
         ) : MainScreen()
         data class MainStatistics(
             val currentPeriodType: String? = null,
