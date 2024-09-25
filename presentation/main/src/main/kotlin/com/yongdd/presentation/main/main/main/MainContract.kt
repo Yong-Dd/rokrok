@@ -5,7 +5,9 @@ import com.yongdd.core.ui.base.ViewSideEffect
 import com.yongdd.core.ui.base.ViewState
 import com.yongdd.domain.model.diary.DiaryModel
 import com.yongdd.domain.model.routine.RoutineModel
+import com.yongdd.domain.model.routine.RoutineSaveModel
 import com.yongdd.domain.model.user.UserModel
+import java.time.LocalDate
 
 class MainContract {
     data class State(
@@ -23,6 +25,7 @@ class MainContract {
 
     sealed class Event : ViewEvent {
         data class PageChanged(val page : Int) : Event()
+        data object BasicSetRoutine: Event()
     }
 
     sealed class Effect : ViewSideEffect {
@@ -34,8 +37,9 @@ class MainContract {
 
     sealed class MainScreen {
         data class MainRoutine(
-            val routineList : List<RoutineModel> = emptyList(),
-            val currentDate : String? = null,
+            val routineList : List<RoutineSaveModel> = emptyList(),
+            val currentDate : LocalDate? = null,
+            val dateList : List<LocalDate> = emptyList()
         ) : MainScreen()
         data class MainDiary(
             val currentDate: String? = null,

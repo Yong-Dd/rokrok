@@ -18,3 +18,14 @@ fun RoutineModel.asRoutineDTO() = RoutineDTO(
     routineDetail = detail?:"",
     routineEmoticon = emoticon?:""
 )
+
+fun RoutineModel.asRoutineSaveModel() = RoutineSaveModel(
+    saveId = "",
+    routineId = id,
+    routineDay = null,
+    percent = 0,
+    isShow = true,
+    routineContent = content,
+    routineDetail = detail,
+    routineEmoticon = emoticon
+)
