@@ -7,9 +7,13 @@ import com.yongdd.domain.model.routine.RoutineModel
 import com.yongdd.domain.model.routine.RoutineSaveModel
 import com.yongdd.domain.model.routine.asRoutineSaveModel
 import com.yongdd.domain.usecase.routine.UseCaseGetAllRoutine
+import com.yongdd.domain.usecase.routine.UseCaseGetIsStartMonday
 import com.yongdd.domain.usecase.routine.UseCaseGetSaveRoutineList
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -20,7 +24,8 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val useCaseGetSaveRoutineList: UseCaseGetSaveRoutineList,
-    private val useCaseGetAllRoutine: UseCaseGetAllRoutine
+    private val useCaseGetAllRoutine: UseCaseGetAllRoutine,
+    private val useCaseGetIsStartMonday: UseCaseGetIsStartMonday
 )  : BaseViewModel<MainContract.State, MainContract.Event, MainContract.Effect>() {
     override fun setInitialState() = MainContract.State()
     override fun handleEvents(event: MainContract.Event) {
@@ -33,15 +38,18 @@ class MainViewModel @Inject constructor(
             }
             is MainContract.Event.BasicSetRoutine -> {
                 val today = LocalDate.now()
-                val list : List<LocalDate> = getWeekRangeContaining(today, DayOfWeek.MONDAY) // todo : 지정된 값 가져오기
-                val simpleDate = DateTimeFormatter.ofPattern("yyyyMMdd")
-                val currentDate = today.format(simpleDate)
-
                 launchWithExceptionNotTimeOut {
+                    val isStartMonday = scope.async {
+                        useCaseGetIsStartMonday.invoke()
+                    }.await()
+                    val list : List<LocalDate> = getWeekRangeContaining(today, if(isStartMonday) DayOfWeek.MONDAY else DayOfWeek.SUNDAY)
+                    val simpleDate = DateTimeFormatter.ofPattern("yyyyMMdd")
+                    val currentDate = today.format(simpleDate)
+
                     val routineList = mutableListOf<RoutineSaveModel>()
                     useCaseGetSaveRoutineList.invoke(currentDate)
                         .combine(useCaseGetAllRoutine.invoke()) { saved, all ->
-                            routineList.addAll(getCalculateRoutineList(today,saved, all))
+                            routineList.addAll(getCalculateRoutineList(today, saved, all))
                         }
 
                     setState {
@@ -53,6 +61,7 @@ class MainViewModel @Inject constructor(
                             )
                         )
                     }
+
                 }
             }
         }
@@ -79,7 +88,7 @@ class MainViewModel @Inject constructor(
             it.daysOfWeek?.contains(getDayOfWeek(date.dayOfWeek.value)) ?: false
         }
     }
-    
+
     private fun getWeekRangeContaining(date: LocalDate, startMonth : DayOfWeek): List<LocalDate> {
         val startDate : LocalDate = date.with(TemporalAdjusters.previousOrSame(startMonth))
 

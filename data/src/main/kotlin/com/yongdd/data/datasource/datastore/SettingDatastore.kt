@@ -10,20 +10,19 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStoreFile
 import kotlinx.coroutines.flow.first
 
-
-class UserDatastore constructor(private val context : Context) {
+class SettingDatastore constructor(private val context : Context) {
     private val dataStore : DataStore<Preferences> =
         PreferenceDataStoreFactory.create(
-            produceFile = {context.preferencesDataStoreFile("user")}
+            produceFile = {context.preferencesDataStoreFile("setting")}
         )
 
-    // 유저 id 값
-    private val keyUserId = stringPreferencesKey("user_id")
+    // 시작일
+    private val keyIsStartMonday = booleanPreferencesKey("is_start_monday")
 
-    suspend fun getUserId() : String = dataStore.data.first()[keyUserId] ?: ""
-    suspend fun setUserId(value : String) {
+    suspend fun getIsStartMonday() : Boolean = dataStore.data.first()[keyIsStartMonday] ?: false
+    suspend fun setIsStartMonday(value : Boolean) {
         dataStore.edit { pref ->
-            pref[keyUserId] = value
+            pref[keyIsStartMonday] = value
         }
     }
 }

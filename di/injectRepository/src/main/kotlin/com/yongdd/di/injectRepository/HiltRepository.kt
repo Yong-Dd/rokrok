@@ -7,6 +7,7 @@ import com.yongdd.data.repository.UserRepositoryImpl
 import com.yongdd.domain.interfaceRepository.DiaryRepository
 import com.yongdd.domain.interfaceRepository.RoutineRepository
 import com.yongdd.domain.interfaceRepository.RoutineSaveRepository
+import com.yongdd.domain.interfaceRepository.SettingRepository
 import com.yongdd.domain.interfaceRepository.UserRepository
 import dagger.Binds
 import dagger.Module
@@ -27,4 +28,7 @@ interface HiltRepository {
 
     @Binds
     fun bindUserRepository(repository: UserRepositoryImpl): UserRepository
+
+    @Binds
+    fun bindSettingRepository(repository: SettingRepository): SettingRepository
 }

@@ -66,7 +66,7 @@ fun MainRoutineScreenFrame(
                     contentPadding = PaddingValues(horizontal = 19.dp),
                     horizontalArrangement = Arrangement.spacedBy(38.dp)
                 ) {
-
+                    // todo : 기준일자별 가져와야하는데 흠...
                 }
             }
 
